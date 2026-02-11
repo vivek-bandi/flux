@@ -25,6 +25,18 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+/**
+ * Get the callback URL for email verification
+ * Uses the current window origin in client context
+ */
+function getEmailRedirectUrl(): string {
+  // Only use window in client context
+  if (typeof window !== "undefined") {
+    return `${window.location.origin}/auth/callback`;
+  }
+  return "";
+}
+
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -50,6 +62,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [supabase]);
 
   const signUp = async (email: string, password: string, name: string) => {
+    const redirectUrl = getEmailRedirectUrl();
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -57,6 +70,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         data: {
           name,
         },
+        emailRedirectTo: redirectUrl,
       },
     });
 
