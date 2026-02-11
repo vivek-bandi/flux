@@ -7,14 +7,21 @@ export function createClient() {
     {
       cookies: {
         get(name: string) {
+          // Only access document in browser environment
+          if (typeof document === 'undefined') return undefined;
+          
           // Read cookies from document.cookie
           const value = `; ${document.cookie}`;
           const parts = value.split(`; ${name}=`);
           if (parts.length === 2) {
             return parts.pop()?.split(';').shift();
           }
+          return undefined;
         },
         set(name: string, value: string, options: any) {
+          // Only access document in browser environment
+          if (typeof document === 'undefined') return;
+          
           // Set cookies using document.cookie
           let cookie = `${name}=${value}`;
           if (options?.maxAge) {
@@ -29,6 +36,9 @@ export function createClient() {
           document.cookie = cookie;
         },
         remove(name: string, options: any) {
+          // Only access document in browser environment
+          if (typeof document === 'undefined') return;
+          
           // Remove cookies by setting max-age to 0
           let cookie = `${name}=; max-age=0`;
           if (options?.path) {

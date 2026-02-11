@@ -62,7 +62,7 @@ export const ScrollableMessageContainer = React.forwardRef<
     <div
       ref={scrollContainerRef}
       onScroll={handleScroll}
-      className={cn("flex-1 overflow-y-auto", className)}
+      className={cn("flex-1 overflow-y-auto overscroll-contain touch-pan-y", className)}
       {...props}
     >
       {children}

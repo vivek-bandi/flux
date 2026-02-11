@@ -61,9 +61,9 @@ function DashboardContent() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col bg-linear-to-br from-slate-50 via-blue-50/30 to-slate-50">
+    <div className="flex h-screen w-full flex-col bg-linear-to-br from-slate-50 via-blue-50/30 to-slate-50 overflow-hidden" style={{ height: '100dvh' }}>
       {/* App Bar */}
-      <header className="border-b bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-20">
+      <header className="border-b bg-white/90 backdrop-blur-md shadow-sm shrink-0 z-20">
         <div className="flex h-14 items-center justify-between px-4 sm:px-6">
           {/* Left: App Brand */}
           <div className="flex items-center gap-3">
@@ -92,9 +92,9 @@ function DashboardContent() {
       </header>
 
       {/* Main Workspace: Two-Panel Layout */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden min-h-0">
         {/* Left Panel: Context & Activity - Desktop Only */}
-        <aside className="hidden lg:flex lg:w-80 flex-col gap-4 p-4 border-r border-slate-200 bg-slate-50/50 overflow-y-auto">
+        <aside className="hidden lg:flex lg:w-80 flex-col gap-4 p-4 border-r border-slate-200 bg-slate-50/50 overflow-y-auto shrink-0">
           {/* Workspace Info Card */}
           <div className="rounded-xl border border-slate-200 bg-white/80 backdrop-blur-sm shadow-sm p-5 space-y-3 shrink-0">
             <div className="flex items-center gap-2 text-slate-700">
@@ -153,9 +153,9 @@ function DashboardContent() {
         </aside>
 
         {/* Right Panel: AI Chat */}
-        <main className="flex-1 flex flex-col rounded-none lg:rounded-xl border-none lg:border border-slate-200 bg-white/80 backdrop-blur-sm shadow-none lg:shadow-lg overflow-hidden">
+        <main className="flex-1 flex flex-col rounded-none lg:rounded-xl border-none lg:border border-slate-200 bg-white/80 backdrop-blur-sm shadow-none lg:shadow-lg overflow-hidden min-h-0">
           {/* Chat Header */}
-          <div className="border-b border-slate-200 bg-white/60 px-6 py-3 flex items-center justify-between">
+          <div className="border-b border-slate-200 bg-white/60 px-4 sm:px-6 py-3 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
               <h2 className="text-sm font-semibold text-slate-900">AI Chat</h2>
@@ -167,7 +167,7 @@ function DashboardContent() {
           </div>
 
           {/* Messages Area */}
-          <ScrollableMessageContainer className="flex-1 p-6">
+          <ScrollableMessageContainer className="flex-1 p-4 sm:p-6 min-h-0">
             <ErrorBoundary>
               {!hasMessages ? (
               <div className="flex flex-col items-center justify-center text-center space-y-6 min-h-full animate-in fade-in duration-700">
@@ -195,7 +195,7 @@ function DashboardContent() {
           </ScrollableMessageContainer>
 
           {/* Input Area */}
-          <div className="border-t border-slate-200 bg-white/60 p-4">
+          <div className="border-t border-slate-200 bg-white/60 p-3 sm:p-4 shrink-0 safe-bottom">
             <MessageInput />
           </div>
         </main>
