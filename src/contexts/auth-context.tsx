@@ -27,14 +27,11 @@ interface AuthProviderProps {
 
 /**
  * Get the callback URL for email verification
- * Uses the current window origin in client context
+ * Always uses production URL for consistent verification redirects
  */
 function getEmailRedirectUrl(): string {
-  // Only use window in client context
-  if (typeof window !== "undefined") {
-    return `${window.location.origin}/auth/callback`;
-  }
-  return "";
+  const productionUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://flux-ai.app";
+  return `${productionUrl}/auth/callback`;
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
