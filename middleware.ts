@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const response = NextResponse.next({
+  let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
@@ -31,6 +31,7 @@ export async function middleware(request: NextRequest) {
     },
   );
 
+  // Refresh session if expired - this is important!
   const {
     data: { user },
   } = await supabase.auth.getUser();

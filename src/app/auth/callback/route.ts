@@ -1,4 +1,5 @@
-import { createClient as createServerClient } from "@/lib/supabase/supabase-server";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -15,22 +16,43 @@ export async function GET(request: Request) {
   }
 
   if (code) {
-    try {
-      const supabase = await createServerClient();
-      const { error: exchangeError } =
-        await supabase.auth.exchangeCodeForSession(code);
-
-      if (exchangeError) {
-        const loginUrl = new URL("/login", request.url);
-        loginUrl.searchParams.set("error", exchangeError.message);
-        return NextResponse.redirect(loginUrl);
+    const cookieStore = await cookies();
+    
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return cookieStore.getAll();
+          },
+          setAll(cookiesToSet: { name: string; value: string; options?: CookieOptions }[]) {
+            try {
+              cookiesToSet.forEach(({ name, value, options }) =>
+                cookieStore.set(name, value, options)
+              );
+            } catch {
+              // The `setAll` method was called from a Server Component.
+              // This can be ignored if you have middleware refreshing
+              // user sessions.
+            }
+          },
+        },
       }
-    } catch {
+    );
+
+    const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (exchangeError) {
       const loginUrl = new URL("/login", request.url);
-      loginUrl.searchParams.set("error", "Authentication failed");
+      loginUrl.searchParams.set("error", exchangeError.message);
       return NextResponse.redirect(loginUrl);
     }
+
+    // URL to redirect to after sign in process completes
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  return NextResponse.redirect(new URL("/dashboard", request.url));
+  // No code provided, redirect to login
+  return NextResponse.redirect(new URL("/login", request.url));
 }
