@@ -27,11 +27,16 @@ interface AuthProviderProps {
 
 /**
  * Get the callback URL for email verification
- * Always uses production URL for consistent verification redirects
+ * Uses the current environment's site URL from NEXT_PUBLIC_SITE_URL env var
  */
 function getEmailRedirectUrl(): string {
-  const productionUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://flux-ai.app";
-  return `${productionUrl}/auth/callback`;
+  // For browsers, use window.location.origin to get current domain
+  if (typeof window !== 'undefined') {
+    return `${window.location.origin}/auth/callback`;
+  }
+  // For SSR, use environment variable
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  return `${siteUrl}/auth/callback`;
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
