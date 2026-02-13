@@ -61,17 +61,17 @@ function DashboardContent() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col bg-linear-to-br from-slate-50 via-blue-50/30 to-slate-50 overflow-hidden" style={{ height: '100dvh' }}>
+    <div className="flex h-screen w-full flex-col bg-linear-to-br from-background via-background to-primary/5 overflow-hidden" style={{ height: '100dvh' }}>
       {/* App Bar */}
-      <header className="border-b bg-white/90 backdrop-blur-md shadow-sm shrink-0 z-20">
+      <header className="border-b bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm shrink-0 z-20">
         <div className="flex h-14 items-center justify-between px-4 sm:px-6">
           {/* Left: App Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-md">
-              <MessageSquare className="h-4 w-4 text-white" />
+            <div className="w-8 h-8 bg-linear-to-br from-indigo-600 to-violet-600 rounded-lg flex items-center justify-center shadow-md">
+              <Sparkles className="h-4 w-4 text-white" />
             </div>
-            <h1 className="text-base sm:text-lg font-bold text-slate-900">
-              Flux Finance
+            <h1 className="text-base sm:text-lg font-bold bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+              Flux
             </h1>
           </div>
 
@@ -82,8 +82,7 @@ function DashboardContent() {
             </div>
             <button
               onClick={handleSignOut}
-              className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm hover:shadow w-full sm:w-auto"
-            >
+              className="flex items-center justify-center gap-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow w-full sm:w-auto">
               <LogOut className="h-3.5 w-3.5" />
               <span className="inline">Sign Out</span>
             </button>
@@ -94,26 +93,26 @@ function DashboardContent() {
       {/* Main Workspace: Two-Panel Layout */}
       <div className="flex flex-1 overflow-hidden min-h-0">
         {/* Left Panel: Context & Activity - Desktop Only */}
-        <aside className="hidden lg:flex lg:w-80 flex-col gap-4 p-4 border-r border-slate-200 bg-slate-50/50 overflow-y-auto shrink-0">
+        <aside className="hidden lg:flex lg:w-80 flex-col gap-4 p-4 border-r border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 overflow-y-auto shrink-0">
           {/* Workspace Info Card */}
-          <div className="rounded-xl border border-slate-200 bg-white/80 backdrop-blur-sm shadow-sm p-5 space-y-3 shrink-0">
-            <div className="flex items-center gap-2 text-slate-700">
-              <MessageSquare className="h-4 w-4" />
+          <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-sm p-5 space-y-3 shrink-0">
+            <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <Sparkles className="h-4 w-4" />
               <h2 className="text-sm font-semibold uppercase tracking-wide">
                 Workspace
               </h2>
             </div>
-            <div className="space-y-2 text-sm text-slate-600">
+            <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
               <p>
-                <span className="font-medium text-slate-900">
+                <span className="font-medium text-gray-900 dark:text-white">
                   {user?.user_metadata?.name || "User"}
                 </span>
               </p>
-              <p className="text-xs text-slate-500 hidden sm:block">
+              <p className="text-xs text-gray-500 dark:text-gray-500 hidden sm:block">
                 {user?.email}
               </p>
             </div>
-            <div className="pt-2 border-t border-slate-100 flex items-center gap-4 text-xs text-slate-500">
+            <div className="pt-2 border-t border-gray-100 dark:border-gray-800 flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500">
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-green-500" />
                 <span>Active</span>
@@ -126,8 +125,8 @@ function DashboardContent() {
           </div>
 
           {/* Suggested Prompts Card */}
-          <div className="rounded-xl border border-slate-200 bg-white/80 backdrop-blur-sm shadow-sm p-5 space-y-3 flex-1 overflow-hidden">
-            <div className="flex items-center gap-2 text-slate-700">
+          <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-sm p-5 space-y-3 flex-1 overflow-hidden">
+            <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
               <Sparkles className="h-4 w-4" />
               <h2 className="text-sm font-semibold uppercase tracking-wide">
                 Suggested Prompts
@@ -138,11 +137,11 @@ function DashboardContent() {
                 <button
                   key={index}
                   onClick={() => handlePromptClick(prompt)}
-                  className="w-full text-left p-3 rounded-lg bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-200 hover:from-blue-100 hover:to-indigo-100 hover:border-blue-300 transition-all group"
+                  className="w-full text-left p-3 rounded-lg bg-linear-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 border border-blue-200 dark:border-blue-800 hover:from-blue-100 hover:to-cyan-100 dark:hover:from-blue-900/40 dark:hover:to-cyan-900/40 hover:border-blue-300 dark:hover:border-blue-700 transition-all group"
                 >
                   <div className="flex items-center gap-2">
-                    <Sparkles className="h-3.5 w-3.5 text-blue-600 group-hover:text-blue-700" />
-                    <p className="text-xs font-medium text-blue-900 group-hover:text-blue-950">
+                    <Sparkles className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300" />
+                    <p className="text-xs font-medium text-blue-900 dark:text-blue-100 group-hover:text-blue-950 dark:group-hover:text-white">
                       {prompt}
                     </p>
                   </div>
@@ -153,15 +152,15 @@ function DashboardContent() {
         </aside>
 
         {/* Right Panel: AI Chat */}
-        <main className="flex-1 flex flex-col rounded-none lg:rounded-xl border-none lg:border border-slate-200 bg-white/80 backdrop-blur-sm shadow-none lg:shadow-lg overflow-hidden min-h-0">
+        <main className="flex-1 flex flex-col rounded-none lg:rounded-xl border-none lg:border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-none lg:shadow-lg overflow-hidden min-h-0">
           {/* Chat Header */}
-          <div className="border-b border-slate-200 bg-white/60 px-4 sm:px-6 py-3 flex items-center justify-between shrink-0">
+          <div className="border-b border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/60 px-4 sm:px-6 py-3 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-              <h2 className="text-sm font-semibold text-slate-900">AI Chat</h2>
+              <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+              <h2 className="text-sm font-semibold text-gray-900 dark:text-white">AI Chat</h2>
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Sparkles className="h-3.5 w-3.5 text-blue-500" />
+            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
               <span>Powered by Tambo</span>
             </div>
           </div>
@@ -171,14 +170,14 @@ function DashboardContent() {
             <ErrorBoundary>
               {!hasMessages ? (
               <div className="flex flex-col items-center justify-center text-center space-y-6 min-h-full animate-in fade-in duration-700">
-                <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl">
+                <div className="w-16 h-16 bg-linear-to-br from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center shadow-xl">
                   <Sparkles className="h-8 w-8 text-white" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold text-slate-900">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                     Ready to assist
                   </h3>
-                  <p className="text-slate-600 max-w-md">
+                  <p className="text-gray-600 dark:text-gray-400 max-w-md">
                     Ask me anything or use voice input to get started. I can
                     help with your tasks, answer questions, and more.
                   </p>
@@ -195,7 +194,7 @@ function DashboardContent() {
           </ScrollableMessageContainer>
 
           {/* Input Area */}
-          <div className="border-t border-slate-200 bg-white/60 p-3 sm:p-4 shrink-0 safe-bottom">
+          <div className="border-t border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-gray-900/60 p-3 sm:p-4 shrink-0 safe-bottom">
             <MessageInput />
           </div>
         </main>
@@ -247,10 +246,10 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-linear-to-br from-slate-50 to-slate-100">
+      <div className="flex items-center justify-center h-screen bg-linear-to-br from-background via-background to-primary/5">
         <div className="text-center space-y-4">
-          <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto" />
-          <p className="text-slate-600 font-medium">
+          <div className="w-12 h-12 border-4 border-indigo-200 dark:border-indigo-800 border-t-indigo-600 dark:border-t-indigo-400 rounded-full animate-spin mx-auto" />
+          <p className="text-gray-600 dark:text-gray-400 font-medium">
             Loading your workspace...
           </p>
         </div>

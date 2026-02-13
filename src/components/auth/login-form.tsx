@@ -61,9 +61,17 @@ function LoginFormContent() {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium mb-1.5">
-          Password
-        </label>
+        <div className="flex items-center justify-between mb-1.5">
+          <label htmlFor="password" className="block text-sm font-medium">
+            Password
+          </label>
+          <a
+            href="#"
+            className="text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+          >
+            Forgot password?
+          </a>
+        </div>
         <div className="relative">
           <input
             id="password"
@@ -86,7 +94,7 @@ function LoginFormContent() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full px-4 py-2.5 text-base bg-primary text-primary-foreground rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-4 py-2.5 text-base font-medium text-white bg-linear-to-r from-indigo-600 to-violet-600 rounded-md hover:from-indigo-700 hover:to-violet-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
       >
         {isLoading ? "Signing in..." : "Sign In"}
       </button>
